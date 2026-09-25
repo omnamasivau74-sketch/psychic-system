@@ -7,17 +7,16 @@ import yt_dlp
 
 app = Flask(__name__)
 @app.route('/')
-def home(): return "Alive"
-def run_web(): app.run(host='0.0.0.0', port=10000)
-Thread(target=run_web).start()
+def home(): return "Bot Alive ✅"
+def run_flask(): app.run(host='0.0.0.0', port=10000)
+Thread(target=run_flask).start()
 
 TOKEN = os.environ.get("BOT_TOKEN")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Bot Ready ✅ Link bhejo")
 
-async def handle(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Agar video forward kiya hai toh direct bhej dega
+async def handle_all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.video:
         await context.bot.send_video(chat_id=update.effective_chat.id, video=update.message.video.file_id)
         return
@@ -26,31 +25,16 @@ async def handle(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     url = (update.message.text or "").strip()
-    if "http" not in url:
+    if not url or "http" not in url:
         return
 
-    msg = await update.message.reply_text("⏳ Downloading...")
-    
-    try:
-        opts = {
-            'format': 'best[ext=mp4]/best',
-            'outtmpl': 'video.%(ext)s',
-            'noplaylist': True,
-            'quiet': True,
-            'extractor_args': {'youtube': {'player_client': ['android']}},
-        }
-        with yt_dlp.YoutubeDL(opts) as ydl:
-            info = ydl.extract_info(url, download=True)
-            fname = ydl.prepare_filename(info)
-        
-        await context.bot.send_video(chat_id=update.effective_chat.id, video=open(fname, 'rb'))
-        os.remove(fname)
-        await msg.delete()
-    except Exception as e:
-        await msg.edit_text(f"❌ {e}\n\nTip: Render pe Manual Deploy > Clear cache & deploy karo")
+    if "t.me/c/" in url:
+        await update.message.reply_text("Private hai, forward karke bhejo")
+        return
 
-if __name__ == "__main__":
-    app2 = Application.builder().token(TOKEN).build()
-    app2.add_handler(CommandHandler("start", start))
-    app2.add_handler(MessageHandler(filters.ALL & ~filters.COMMAND, handle))
-    app2.run_polling()
+    status = await update.message.reply_text("⏳ Downloading...")
+    try:
+        ydl_opts = {
+            'format': 'best[ext=mp4]/best',
+            'outtmpl': 'vid.%(ext)s',
+            'noplaylist': True
