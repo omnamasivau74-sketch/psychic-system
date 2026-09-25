@@ -28,7 +28,7 @@ async def download_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     msg = await update.message.reply_text("Downloading... ⏳")
     try:
-        ydl_opts = {'format': 'best', 'outtmpl': '%(title)s.%(ext)s', 'noplaylist': True}
+        ydl_opts = {'format': 'best', 'outtmpl': '%(title)s.%(ext)s', 'extractor_args': {'youtube': {'player_client': ['android']}}, 'noplaylist': True}
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=True)
             filename = ydl.prepare_filename(info)
