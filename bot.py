@@ -5,7 +5,7 @@ import zipfile, os, asyncio
 # --- CONFIG ---
 API_ID = 1234567 # my.telegram.org se
 API_HASH = "YOUR_API_HASH"
-BOT_TOKEN = "YOUR_BOT_TOKEN"
+BOT_TOKEN = "8798146373:AAEb1dOAb3ws948YZRNej6F59tKH-eQfAzU"
 ADMIN_ID = 1234567890 # Teri ID @userinfobot se
 DB_CHANNEL = -1001111111111 # Jaha files store hongi
 
