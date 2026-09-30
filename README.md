@@ -1,2 +1,0 @@
-# psychic-system
-my bot
