@@ -5,7 +5,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 import yt_dlp
 
 logging.basicConfig(level=logging.INFO)
-TOKEN = os.environ.get("BOT_TOKEN")
+TOKEN = os.environ.get("8798146373:AAEb1dOAb3ws948YZRNej6F59tKH-eQfAzU")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Link bhej, download karta hu 👇")
