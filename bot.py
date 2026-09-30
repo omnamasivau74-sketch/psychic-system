@@ -1,6 +1,6 @@
 import telebot
 
-BOT_TOKEN = "8798146373:AAEb1dOAb3ws948YZRNej6F59tKH-eQfAzU" 
+BOT_TOKEN = "8798146373:AAHzO55I_C8gSagy-3sdLkAXXt8zklmdu8o" 
 ADMIN_ID = 736783447 # Yaha Apni ID Dal @userinfobot se
 
 bot = telebot.TeleBot(BOT_TOKEN)
